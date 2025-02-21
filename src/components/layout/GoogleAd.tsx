@@ -3,11 +3,11 @@
 import { useEffect } from "react";
 
 interface GoogleAdProps {
-  adSlot: string; // Google AdSense에서 제공하는 광고 슬롯 ID
+  adSlot?: string; // Google AdSense에서 제공하는 광고 슬롯 ID
   className?: string; // 추가적인 스타일 적용을 위한 클래스
 }
 
-export default function GoogleAd({ adSlot, className }: GoogleAdProps) {
+export default function GoogleAd({ className = "" }: GoogleAdProps) {
   useEffect(() => {
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
@@ -21,8 +21,8 @@ export default function GoogleAd({ adSlot, className }: GoogleAdProps) {
       <ins
         className="adsbygoogle"
         style={{ display: "block" }}
-        data-ad-client="ca-pub-5475756542267711" // ✅ Google AdSense 발급한 광고 ID로 변경
-        data-ad-slot={adSlot}
+        data-ad-client={process.env.NEXT_PUBLIC_ADSENSE_CLIENT} // ✅ Google AdSense 발급한 광고 ID로 변경
+        data-ad-slot={process.env.NEXT_PUBLIC_ADSENSE_SLOT}
         data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>

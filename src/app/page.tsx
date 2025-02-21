@@ -50,7 +50,7 @@ export default function Home() {
       </main>
         {/* 하단 광고 영역 */}
         <footer className="bg-white border-t py-4 flex justify-center">
-          <GoogleAd adSlot="4816676004" />
+          <GoogleAd />
         </footer>
     </div>
   );
