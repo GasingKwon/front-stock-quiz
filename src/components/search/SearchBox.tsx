@@ -7,6 +7,7 @@ interface SearchBoxProps {
     onChange: (value: string) => void;
     placeholder?: string;
     onSubmit?: () => void;
+    disabled?: boolean;
 }
 
 interface ApiResponse {
