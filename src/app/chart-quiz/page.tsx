@@ -1,7 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, FC } from 'react';
-import { ResponsiveContainer, ComposedChart, CartesianGrid, XAxis, YAxis, Tooltip, Customized } from "recharts";
+import React, { useState, useEffect } from 'react';
 import { HintContainer } from '@/components/hint/HintContainer';
 import { SearchBox } from '@/components/search/SearchBox';
 import CandleChart from "@/components/chart/CandleChart";
@@ -9,15 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import { ChevronDown, X, Calendar, History, Home, Trophy, User } from 'lucide-react';
 import Header from "@/components/layout/Header";
 import 'react-toastify/dist/ReactToastify.css';
-
-interface ChartData {
-    date: string;
-    open_price: string;
-    high_price: string;
-    low_price: string;
-    close_price: string;
-    volume: string;
-}
 
 interface Quiz {
     id: string;
