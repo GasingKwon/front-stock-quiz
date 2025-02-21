@@ -8,7 +8,7 @@ import "nprogress/nprogress.css";
 export default function LoadingBar() {
   const pathname = usePathname(); // ✅ 현재 경로 감지
   const [loading, setLoading] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [isPending] = useTransition();
 
   useEffect(() => {
     setLoading(true);

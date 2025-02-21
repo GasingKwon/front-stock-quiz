@@ -11,14 +11,15 @@ import {
 } from "recharts";
 
 const CandleChart = ({ chartData }) => {
-  const [data, setData] = useState(chartData);
+  const [hoveredData, setHoveredData] = useState(null);
+  const [setData] = useState(chartData);
   useEffect(() => {
       setData(chartData); // 새로운 데이터를 반영
   }, [chartData]); // chartData가 변경될 때 업데이트
 
   if (!chartData?.length) return null;
 
-  const [hoveredData, setHoveredData] = useState(null);
+  
 
   const processedData = chartData.map(data => ({
     date: new Date(data.date).toLocaleDateString("ko-KR", {
@@ -75,7 +76,7 @@ const CandleChart = ({ chartData }) => {
             onMouseLeave={() => setHoveredData(null)}
           />
           {/* 캔들 차트 렌더링 */}
-          <Customized component={({ height, width, xAxisMap, yAxisMap }) => {
+          <Customized component={({ xAxisMap, yAxisMap }) => {
             const xAxis = Object.values(xAxisMap)[0]; 
             const yAxis = Object.values(yAxisMap)[0]; 
             const xOffset = xAxis.x; 

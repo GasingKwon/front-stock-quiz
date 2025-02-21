@@ -5,39 +5,44 @@ import { HintContainer } from '@/components/hint/HintContainer';
 import { SearchBox } from '@/components/search/SearchBox';
 import CandleChart from "@/components/chart/CandleChart";
 import { ToastContainer, toast } from 'react-toastify';
-import { ChevronDown, X, Calendar, History, Home, Trophy, User } from 'lucide-react';
+import { ChevronDown, History } from 'lucide-react';
 import Header from "@/components/layout/Header";
 import 'react-toastify/dist/ReactToastify.css';
 
-interface Quiz {
-    id: string;
-    quiz_key: string;
-    stock_id: string;
-    quiz_type: string;
-    start_date: string;
-    end_date: string;
+interface QuizItem {
+    id: number;
+    question: string;
+    options: string[];
+    correctAnswer: string;
     quiz_data: string;
     hint: string;
-    round: string;
+  }
+  
+
+interface QuizHistoryItem {
+    created_at: string;
+    round: number;
 }
 
 interface QuizState {
     solved: boolean;
-    correct?: boolean;
+    correct: boolean;
     attempts: number;
 }
+  
+
 
 export default function StockChart() {
-    const [quizzes, setQuizzes] = useState([]);
+    const [quizzes, setQuizzes] = useState<QuizItem[]>([]);
     const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
     const [unlockedHints, setUnlockedHints] = useState(0);
     const [answer, setAnswer] = useState('');
-    const [quizStates, setQuizStates] = useState([]);
+    const [quizStates, setQuizStates] = useState<QuizState[]>([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<string | null>(null);
     const [showHistoryDropdown, setShowHistoryDropdown] = useState(false);
-    const [quizHistory, setQuizHistory] = useState([]);
-    const [selectedRound, setSelectedRound] = useState(null);
+    const [quizHistory, setQuizHistory] = useState<QuizHistoryItem[]>([]);
+    const [selectedRound, setSelectedRound] = useState<number | null>(null);
     const [isLoadingRound, setIsLoadingRound] = useState(false);
 
     useEffect(() => {
@@ -83,7 +88,7 @@ export default function StockChart() {
         fetchQuizData();
     }, []);
 
-    const handleRoundSelect = async (round) => {
+    const handleRoundSelect = async (round: number) => {
         setIsLoadingRound(true); // 🔄 로딩 시작
         setShowHistoryDropdown(false); // ✅ 회차 선택 시 드롭다운 닫기
     
@@ -281,7 +286,7 @@ export default function StockChart() {
 
     const currentQuiz = quizzes.length > 0 ? quizzes[currentQuizIndex] : null;
     const parsedChartData = currentQuiz ? JSON.parse(currentQuiz.quiz_data) : [];
-    const parsedHints = currentQuiz ? JSON.parse(currentQuiz.hint) : [];
+    const parsedHints: string[] = currentQuiz ? JSON.parse(currentQuiz.hint) : [];
 
     const highestRound = quizHistory.length > 0 
     ? Math.max(...quizHistory.map(q => Number(q.round))) 
