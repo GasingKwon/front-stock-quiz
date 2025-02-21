@@ -15,6 +15,8 @@ interface ApiResponse {
     list: string[];
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
 export function SearchBox({ value, onChange, placeholder, onSubmit }: SearchBoxProps) {
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [suggestions, setSuggestions] = useState<string[]>([]);
@@ -22,7 +24,7 @@ export function SearchBox({ value, onChange, placeholder, onSubmit }: SearchBoxP
     useEffect(() => {
         const fetchStockList = async () => {
             try {
-                const response = await fetch('/api/quiz/stockList');
+                const response = await fetch(`${API_URL}/api/quiz/stockList`);
                 const data: ApiResponse = await response.json();
                 if (data.is_success && Array.isArray(data.list)) {
                     setSuggestions(data.list);

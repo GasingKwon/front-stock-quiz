@@ -30,6 +30,7 @@ interface QuizState {
     attempts: number;
 }
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export default function StockChart() {
     const [quizzes, setQuizzes] = useState<QuizItem[]>([]);
@@ -47,7 +48,7 @@ export default function StockChart() {
     useEffect(() => {
         const fetchQuizData = async () => {
             try {
-                const response = await fetch('/api/quiz/getQuiz', {
+                const response = await fetch(`${API_URL}/api/quiz/getQuiz`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -63,7 +64,7 @@ export default function StockChart() {
                 setQuizStates(data.map(() => ({ solved: false, attempts: 0 })));
 
                 // 이전 회차 데이터 불러오기
-                const historyResponse = await fetch('/api/quiz/getQuizHistory', {
+                const historyResponse = await fetch(`${API_URL}/api/quiz/getQuizHistory`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
@@ -92,7 +93,7 @@ export default function StockChart() {
         setShowHistoryDropdown(false); // ✅ 회차 선택 시 드롭다운 닫기
     
         try {
-            const response = await fetch(`/api/quiz/getQuiz?round=${round}`, {
+            const response = await fetch(`${API_URL}/api/quiz/getQuiz?round=${round}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -170,7 +171,7 @@ export default function StockChart() {
     
         setIsSubmitting(true); // 제출 시작
         try {
-            const response = await fetch('/api/quiz/checkAnswer', {
+            const response = await fetch(`${API_URL}/api/quiz/checkAnswer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
