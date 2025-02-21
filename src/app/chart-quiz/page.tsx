@@ -29,7 +29,6 @@ interface QuizState {
     correct: boolean;
     attempts: number;
 }
-  
 
 
 export default function StockChart() {
@@ -114,6 +113,7 @@ export default function StockChart() {
             setUnlockedHints(0);
             setAnswer('');
         } catch (err) {
+            console.error('Error checking answer:', err);
             toast.error('이전 회차 데이터를 불러오는데 실패했습니다.');
         } finally {
             setIsLoadingRound(false); // ✅ 로딩 완료 (지연 제거)
